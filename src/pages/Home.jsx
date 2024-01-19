@@ -1,11 +1,27 @@
-import '../styles/home.sass';
+import '../styles/pages_styles/home.sass';
 function Home() {
   return (
-    <>
-      <div className='HomeBody'>
-        <h1>All Creative Creations</h1>
-      </div>
-    </>
+    <div className='HomeBody'>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+    </div>
   );
 }
 
