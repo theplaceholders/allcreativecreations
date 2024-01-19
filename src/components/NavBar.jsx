@@ -8,7 +8,7 @@ const NavBar = () => {
         console.log(e.currentTarget)
     }
     return(
-        <nav>
+        <nav id="navbar">
             <MenuIcon handleClickEvent={handleClickEvent}/>
             <div className="navbar__logo">
                 <img src={logo} alt="logo" />
