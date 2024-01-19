@@ -1,6 +1,6 @@
 import MenuIcon from "./MenuIcon"
 import logo from '../assets/logo_without_text.png'
-import '../styles/components_styles/navBar.sass'
+import '../styles/components_styles/navbar.sass'
 const NavBar = () => {
     const handleClickEvent = (e) => {
         console.log("MenuIcon was clicked")
