@@ -1,10 +1,11 @@
 import { Outlet } from "react-router-dom";
+import { NavBar } from "../components";
 
 const Root = () => {
   return (
     <>
         <header>
-
+          <NavBar />
         </header>
         <main>
             <Outlet context={{}}/>
