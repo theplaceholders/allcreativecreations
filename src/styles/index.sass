@@ -5,8 +5,8 @@
   font-weight: 400
 
   color-scheme: light dark
-  color: main.$text-color-dark
-  background-color: main.$background-color-dark
+  color: main.$text-color-light
+  background-color: main.$background-color-light
 
   font-synthesis: none
   text-rendering: optimizeLegibility
@@ -34,19 +34,19 @@ button
   font-size: 1em
   font-weight: 500
   font-family: inherit
-  background-color: main.$button-background-color-dark
+  background-color: main.$button-background-color-light
   cursor: pointer
   transition: border-color 0.25s
 
 button:hover 
   border-color: main.$button-hover-border-color
 
-@media (prefers-color-scheme: light) 
+@media (prefers-color-scheme: dark) 
   :root 
-    color: main.$text-color-light
-    background-color: main.$background-color-light
+    color: main.$text-color-dark
+    background-color: main.$background-color-dark
   
   button 
-    background-color: main.$button-background-color-light
+    background-color: main.$button-background-color-dark
   
 
