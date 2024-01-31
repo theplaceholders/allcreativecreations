@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import logo from '../assets/logo_without_text.png'
 import '../styles/components_styles/navbar.sass'
 import MenuIcon from './MenuIcon'
 import MenuPanel from './MenuPanel'
 const NavBar = () => {
     const [showMenuPanel, setShowMenuPanel] = useState(false)
-    function handleCliclEvent(e){
-        const menuIcon = e.currentTarget
+    
+    function toggleShowMenuPanel(e){
+        const menuIcon = document.getElementById('menu-icon')
         menuIcon.classList.toggle('close')
         const navbar = document.getElementById('navbar')
         if(menuIcon.classList.contains('close')){
@@ -25,9 +26,9 @@ const NavBar = () => {
                 <div className="navbar__logo">
                     <img src={logo} alt="logo" />
                 </div>
-                <MenuIcon handleClickEvent={handleCliclEvent}/>
+                <MenuIcon handleClickEvent={toggleShowMenuPanel}/>
             </nav>
-            <MenuPanel show={showMenuPanel}/>
+            <MenuPanel show={showMenuPanel} toggleShowMenuPanel={toggleShowMenuPanel}/>
         </>
     )
 }

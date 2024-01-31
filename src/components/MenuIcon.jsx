@@ -3,7 +3,7 @@ import '../styles/components_styles/menuIcon.sass';
 
 const MenuIcon = ({handleClickEvent}) => {
     return(
-        <button className="menu-icon" onClick={(e)=>handleClickEvent(e)}>
+        <button id="menu-icon" onClick={(e)=>handleClickEvent(e)}>
             <div className="menu-icon__bar"/>
             <div className="menu-icon__bar"/>
             <div className="menu-icon__bar"/>
