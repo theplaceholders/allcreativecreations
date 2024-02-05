@@ -1,9 +1,10 @@
 const express = require('express');
 const cors = require('cors');
-const pool = require('./client');  // Importing the PostgreSQL client
+const pool = require('./Client');  // Importing the PostgreSQL client
 const submissionRoutes = require('./routes/submissionRoutes');
-const authMiddleware = require('./middleware/authentication');
-
+const dotenv = require('dotenv');
+dotenv.config();
+const pg = require('pg');
 const app = express();
 
 // Verify database connection
@@ -14,7 +15,7 @@ pool.connect()
 // Middleware
 app.use(cors()); // Configure CORS as needed
 app.use(express.json()); // for parsing application/json
-app.use('/api/submissions', authMiddleware, submissionRoutes);
+
 
 // Error handling
 app.use((err, req, res, next) => {
