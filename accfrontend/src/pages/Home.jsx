@@ -1,10 +1,11 @@
 import '../styles/home.sass';
+import logo from '../assets/ACCLogo.png';
 function Home() {
   return (
     <>
       <div className='HomeBody'>
-        <h1>All Creative Creations</h1>
-      </div>
+    
+    </div>
     </>
   );
 }
