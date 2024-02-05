@@ -1,0 +1,29 @@
+@use '../global/_main-color.sass' as main
+
+.hidden
+    visibility: hidden
+    opacity: 0
+
+.menu-panel
+    height: calc( 100vh - 4rem )
+    width: 100vw
+    background-color: main.$background-color-light
+    transition: ease-in-out 0.3s
+    .menu-panel__list
+        height: 100%
+        display: flex
+        padding: 0
+        margin: 0
+        list-style-type: none
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        .menu-panel__item
+            margin: 1rem 0
+            .menu-panel__link
+                text-decoration: none
+                color: main.$text-color-light
+                font-size: 2rem
+                font-weight: 300
+                padding: 1rem 0
+                background-color: transparent

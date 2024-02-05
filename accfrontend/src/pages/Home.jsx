@@ -1,12 +1,27 @@
-import '../styles/home.sass';
-import logo from '../assets/ACCLogo.png';
+import '../styles/pages_styles/home.sass';
 function Home() {
   return (
-    <>
-      <div className='HomeBody'>
-    
+    <div className='HomeBody'>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
+      <h1>All Creative Creations</h1>
     </div>
-    </>
   );
 }
 
