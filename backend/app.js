@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const pool = require('./Client');  // Importing the PostgreSQL client
+const seed = require('./database/seed');
 const submissionRoutes = require('./routes/submissionRoutes');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -9,7 +10,10 @@ const app = express();
 
 // Verify database connection
 pool.connect()
-  .then(() => console.log('Connected to PostgreSQL'))
+  .then(() => {
+    console.log('Connected to PostgreSQL')
+    seed();
+  })
   .catch(err => console.error('Connection error', err));
 
 // Middleware
