@@ -1,13 +1,12 @@
 // const bcrypt = require('bcrypt');
 const pool = require('../Client');
-const client = pool;
 
 
 async function dropTables() {
   try {
     console.log('Starting to drop tables...');
 
-    await client.query(`
+    await pool.query(`
       DROP TABLE IF EXISTS reservations;
       DROP TABLE IF EXISTS customers;
     `);
@@ -23,7 +22,7 @@ async function createTables() {
   try {
     console.log('Starting to build tables...');
 
-    await client.query(`
+    await pool.query(`
         CREATE TABLE customers(
             internal_ID UUID DEFAULT gen_random_uuid() PRIMARY KEY,
             customer_ID INTEGER UNIQUE NOT NULL,
