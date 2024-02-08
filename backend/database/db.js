@@ -41,7 +41,7 @@ async function updateCustomerByCustomerId({...customer}) {
         `, Object.values(customer));
         return result.rows;
     } catch (e) {
-        console.error('Error updating customer!!!', e);
+        console.error('Error updating customer!!!');
     }
 }
 
@@ -118,7 +118,7 @@ async function updateReservation({...reservation}) {
         `, Object.values(reservation));
         return result.rows;
     } catch (e) {
-        console.error('Error updating reservation!!!', e);
+        console.error('Error updating reservation!!!');
     }
 }
 
@@ -163,7 +163,7 @@ async function updateUserByUsername({...user}) {
         `, Object.values(user));
         return result.rows;
     } catch(e){
-        console.error('Error updating user!!!', e);
+        console.error('Error updating user!!!');
     }
 }
 

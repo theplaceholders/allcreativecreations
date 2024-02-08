@@ -80,10 +80,27 @@ async function insertInitialData() {
       { customer_ID: 9, first_name: 'John8', last_name: 'Doe8', email: 'test8@example.com' },
     ]
 
-    customers.map(async (customer) => {
+    const customerInternalId = []
+
+    await Promise.all(customers.map(async (customer) => {
       await createCustomer(customer)
+      .then((result) => {
+        console.log(result[0])
+        customerInternalId.push(result[0].internal_id)
+      })
+    }))
+
+    const reservations = [
+      { reservation_ID: 1, start_date: '2021-01-01', end_date: '2021-01-02', customer_ID: customerInternalId[0] },
+      { reservation_ID: 2, start_date: '2021-01-04', end_date: '2021-01-12', customer_ID: customerInternalId[1] },
+      { reservation_ID: 3, start_date: '2021-01-20', end_date: '2021-01-30', customer_ID: customerInternalId[2] },
+      { reservation_ID: 4, start_date: '2021-01-31', end_date: '2021-02-08', customer_ID: customerInternalId[0] },
+    ]
+
+    await Promise.all(reservations.map(async (reservation) => {
+      await createReservation(reservation)
       .then((result) => {console.log(result)})
-    })
+    }))
     
     console.log('Finished inserting initial data!');
   } catch (e) {
