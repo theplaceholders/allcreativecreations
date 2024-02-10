@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { Root, Home, ContactUs, NotFound } from './pages'
+import { Root, Home, ContactUs, NotFound, AdminPage } from './pages'
 
 const router = createBrowserRouter([
   {
@@ -15,6 +15,10 @@ const router = createBrowserRouter([
         path:"/contact-us",
         element: <ContactUs />,
       },
+      {
+        path:"/admin",
+        element: <AdminPage />,
+      }
     ]
   }
 ])

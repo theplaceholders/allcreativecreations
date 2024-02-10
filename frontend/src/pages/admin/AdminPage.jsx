@@ -1,8 +1,28 @@
+import { useEffect, useState } from "react";
+import { getCustomers } from "../../api/customeApi";
+
+import CustomersTable from "./helper/CustomersTable";
+
+import "../../styles/pages_styles/admin.sass";
 
 const AdminPage = () => {
+    const [customers, setCustomers] = useState([]);
+    useEffect(() => {
+        getCustomers().then((data) => {
+            data.map((customer) => {
+                customer.name = `${customer.first_name} ${customer.last_name}`;
+                return customer;
+            });
+            
+            setCustomers(data);
+        });
+    }, []);
     return (
         <div>
-            <h1>This is Admin Page</h1>
+            <p>This is Admin Page</p>
+            <div>
+                <CustomersTable customers={customers} />
+            </div>
         </div>
     );
 }
