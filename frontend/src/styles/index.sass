@@ -43,8 +43,7 @@ button:hover
   border-color: main.$button-hover-border-color
 
 .hidden
-    visibility: hidden
-    opacity: 0
+    animation: fadeOutAndHidden 0.5s forwards
 
 @media (prefers-color-scheme: dark) 
   :root 
@@ -54,4 +53,15 @@ button:hover
   button 
     background-color: main.$button-background-color-dark
   
-
+@keyframes fadeOutAndHidden
+  0%
+    opacity: 1
+    // height: auto
+  99%
+    opacity: 0
+    // height: auto
+  100%
+    opacity: 0
+    // height: 0
+    display: none
+    
