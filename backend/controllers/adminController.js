@@ -1,43 +1,117 @@
+const {
+    updateCustomerByCustomerId,
+    getCustomerByCustomerId,
+    getCustomerByInternalId,
+    createUser,
+    updateUserByUsername,
+    getUserByUsername,
+    getUserByEmail,
+    getUserByRole,
+    getAllCustomers
+} = require('../database/db'); // Import database functions
+
+const AdminController = {};
 
 
-// Function to handle admin login
-exports.handleLogin = (req, res) => {
-    const { username, password } = req.body;
 
-    // Check if username and password are valid
-    if (username === 'admin' && password === 'password') {
-        // Successful login
-        res.status(200).json({ message: 'Login successful' });
-    } else {
-        // Invalid credentials
-        res.status(401).json({ message: 'Invalid username or password' });
+AdminController.updateCustomer = async (req, res) => {
+    try {
+        const { customerId } = req.params;
+        const updatedCustomer = await updateCustomerByCustomerId(customerId, req.body);
+        res.status(200).json(updatedCustomer);
+    } catch (error) {
+        console.error('Error updating customer:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 };
 
-// Function to handle admin logout
-exports.handleLogout = (req, res) => {
-    // Clear session or token
-    res.clearCookie('token'); 
-    // Redirect to login page or send response
-    res.redirect('/login'); // Redirect to the login page after logout
+
+
+AdminController.handleGetCustomerByCustomerId = async (req, res) => {
+    try {
+        const { customerId } = req.params;
+        const customer = await getCustomerByCustomerId(customerId);
+        res.status(200).json(customer);
+    } catch (error) {
+        console.error('Error fetching customer by customer ID:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 };
 
-// Function to list all customer inquiries
-exports.listInquiries = (req, res) => {
-    // Logic for listing inquiries
+AdminController.getCustomerByInternalId = async (req, res) => {
+    try {
+        const { internalId } = req.params;
+        const customer = await getCustomerByInternalId(internalId);
+        res.status(200).json(customer);
+    } catch (error) {
+        console.error('Error fetching customer by internal ID:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 };
 
-// Function to delete a specific customer inquiry
-exports.deleteInquiry = (req, res) => {
-    // Logic for deleting an inquiry
+AdminController.createUser = async (req, res) => {
+    try {
+        const user = req.body;
+        const newUser = await createUser(user);
+        res.status(201).json(newUser);
+    } catch (error) {
+        console.error('Error creating user:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 };
 
-// Function to confirm a customer request
-exports.confirmRequest = (requestId) => {
-    // Logic for confirming a request
+AdminController.updateUser = async (req, res) => {
+    try {
+        const { username } = req.params;
+        const updatedUser = await updateUserByUsername(username, req.body);
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 };
 
-// Function to send a confirmation email
-exports.sendConfirmationEmail = (requestId) => {
-    // Logic for sending an email
+AdminController.getUserByUsername = async (req, res) => {
+    try {
+        const { username } = req.params;
+        const user = await getUserByUsername(username);
+        res.status(200).json(user);
+    } catch (error) {
+        console.error('Error fetching user by username:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 };
+
+AdminController.getUserByEmail = async (req, res) => {
+    try {
+        const { email } = req.params;
+        const user = await getUserByEmail(email);
+        res.status(200).json(user);
+    } catch (error) {
+        console.error('Error fetching user by email:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+AdminController.getUserByRole = async (req, res) => {
+    try {
+        const { role } = req.params;
+        const user = await getUserByRole(role);
+        res.status(200).json(user);
+    } catch (error) {
+        console.error('Error fetching user by role:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+AdminController.handleGetAllCustomers = async (req, res) => {
+    try {
+        const customers = await getAllCustomers();
+        res.status(200).json(customers);
+    } catch (error) {
+        console.error('Error fetching all customers:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+module.exports = AdminController;
