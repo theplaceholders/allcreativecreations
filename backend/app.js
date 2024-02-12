@@ -20,11 +20,14 @@ pool.connect()
 app.use(cors()); // Configure CORS as needed
 app.use(express.json()); // for parsing application/json
 
-const customerRouter = require('./routes/customerRoutes');
-app.use('/customers', customerRouter);
+// const customerRouter = require('./routes/customerRoutes');
+// app.use('/customers', customerRouter);
 
 const reservationRouter = require('./routes/reservationRoutes');
 app.use('/reservation', reservationRouter);
+
+const adminRouter = require('./routes/adminRoutes');
+app.use('/admin', adminRouter);
 
 
 // Error handling

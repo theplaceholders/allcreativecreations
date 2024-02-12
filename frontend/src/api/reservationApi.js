@@ -1,7 +1,7 @@
 import { BASE_API_URL } from "./api_url";
-const API_URL = `${BASE_API_URL}/customers`;
+const API_URL = `${BASE_API_URL}/reservation`;
 
-export const getCustomers = async () => {
+export const getReservations = async () => {
     try {
         const response = await fetch(`${API_URL}/list`);
         return response.json();
