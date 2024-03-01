@@ -10,3 +10,4 @@ export const getUserByRole = async (role) => {
         console.error('Error fetching user by role', error);
     }
 }
+

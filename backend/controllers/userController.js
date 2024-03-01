@@ -1,7 +1,8 @@
+const { getCustomerByCustomerId } = require("../database/db");
 
+const userController = {};
 
-
-UserController.createCustomer = async (req, res) => {
+userController.createCustomer = async (req, res) => {
     try {
         const customer = req.body;
         const newCustomer = await createCustomer(customer);
@@ -12,7 +13,7 @@ UserController.createCustomer = async (req, res) => {
     }
 };
 
-UserController.createReservation = async (req, res) => {
+userController.createReservation = async (req, res) => {
     try {
         const reservation = req.body;
         const newReservation = await createReservation(reservation);
@@ -23,7 +24,7 @@ UserController.createReservation = async (req, res) => {
     }
 };
 
-UserController.updateReservation = async (req, res) => {
+userController.updateReservation = async (req, res) => {
     try {
         const { reservationId } = req.params;
         const updatedReservation = await updateReservation(reservationId, req.body);
@@ -34,7 +35,7 @@ UserController.updateReservation = async (req, res) => {
     }
 };
 
-UserController.updateCustomerByCustomerId = async (req, res) => {
+userController.handleUpdateCustomerByCustomerId = async (req, res) => {
     try {
         const { customerId } = req.params;
         const updatedCustomer = await updateCustomerByCustomerId(customerId, req.body);
@@ -44,4 +45,17 @@ UserController.updateCustomerByCustomerId = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
+
+userController.handleGetCustomerByCustomerId = async (req, res) => {
+    try {
+        const {customerId} = req.params;
+        const getCustomer = await getCustomerByCustomerId(customerId)
+        res.status(200).json(getCustomer)
+    } catch (error) {
+        console.error('Error getting customer:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+module.exports = userController;
 
