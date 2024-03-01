@@ -10,6 +10,8 @@ async function dropTables() {
     console.log("Starting to drop tables...");
 
     await pool.query(`
+      DROP TABLE IF EXISTS reservation_services;
+      DROP TABLE IF EXISTS services;
       DROP TABLE IF EXISTS reservations;
       DROP TABLE IF EXISTS customers;
       DROP TABLE IF EXISTS users;
@@ -26,7 +28,7 @@ async function createTables() {
   try {
     console.log("Starting to build tables...");
 
-    await pool.query(`
+    await pool.query(`  
         CREATE TABLE users(
             internal_id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
             username VARCHAR(255) UNIQUE NOT NULL,
@@ -39,7 +41,7 @@ async function createTables() {
             customer_id INTEGER UNIQUE NOT NULL,
             first_name VARCHAR(255) NOT NULL,
             last_name VARCHAR(255) NOT NULL,
-            email VARCHAR(255) NOT NULL
+            email VARCHAR(255) NOT NULL,
             CONSTRAINT email_format CHECK (email LIKE '%_@__%.__%')
         );
         CREATE TABLE reservations(
@@ -47,14 +49,14 @@ async function createTables() {
             reservation_id INTEGER UNIQUE NOT NULL,
             start_date DATE NOT NULL,
             end_date DATE NOT NULL,
-            customer_id UUID REFERENCES customers(internal_id) NOT NULL
+            customer_id UUID REFERENCES customers(internal_id) NOT NULL,
             CONSTRAINT check_dates CHECK (start_date < end_date)
         );
         CREATE TABLE services(
           internal_id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
           service_id INTEGER UNIQUE NOT NULL,
           name VARCHAR(255) NOT NULL,
-          note VARCHAR(255) NOT NULL,
+          note VARCHAR(255) NOT NULL
         );
         CREATE TABLE reservation_services(
           internal_id UUID DEFAULT gen_random_uuid() PRIMARY KEY,

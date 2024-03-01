@@ -3,6 +3,7 @@ const cors = require('cors');
 const pool = require('./Client');  // Importing the PostgreSQL client
 const submissionRoutes = require('./routes/submissionRoutes');
 const userRoutes = require("./routes/userRoutes")
+
 const dotenv = require('dotenv');
 dotenv.config();
 const pg = require('pg');
