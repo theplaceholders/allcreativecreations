@@ -1,8 +1,9 @@
 const bcrypt = require('bcrypt');
 require('dotenv').config();
 const pool = require('../Client');
-const { createUser, createCustomer, createReservation } = require('./db');
+const { users, customers, reservations } = require('./helper');
 
+console.log('Starting to seed the database...');
 
 async function dropTables() {
   try {
@@ -65,10 +66,10 @@ async function insertInitialData() {
     //+process.env.SALT_ROUNDS << the + before process.env.SALT_ROUNDS is to convert the string to a number
     const hashedPassword = await bcrypt.hash('admin', +process.env.SALT_ROUNDS);
 
-    await createUser({ username:"admin", password:hashedPassword, email:"admin@example.com", role:"admin"})
+    await users.create({ username:"admin", password:hashedPassword, email:"admin@example.com", role:"admin"})
     .then((result) => {console.log(result)})
 
-    const customers = [
+    const devCustomers = [
       { customer_ID: 1, first_name: 'John', last_name: 'Doe', email: 'test@example.com' },
       { customer_ID: 2, first_name: 'John1', last_name: 'Doe1', email: 'test1@example.com' },
       { customer_ID: 3, first_name: 'John2', last_name: 'Doe2', email: 'test2@example.com' },
@@ -82,23 +83,23 @@ async function insertInitialData() {
 
     const customerInternalId = []
 
-    await Promise.all(customers.map(async (customer) => {
-      await createCustomer(customer)
+    await Promise.all(devCustomers.map(async (customer) => {
+      await customers.create(customer)
       .then((result) => {
         console.log(result[0])
         customerInternalId.push(result[0].internal_id)
       })
     }))
 
-    const reservations = [
+    const devReservations = [
       { reservation_ID: 1, start_date: '2021-01-01', end_date: '2021-01-02', customer_ID: customerInternalId[0] },
       { reservation_ID: 2, start_date: '2021-01-04', end_date: '2021-01-12', customer_ID: customerInternalId[1] },
       { reservation_ID: 3, start_date: '2021-01-20', end_date: '2021-01-30', customer_ID: customerInternalId[2] },
       { reservation_ID: 4, start_date: '2021-01-31', end_date: '2021-02-08', customer_ID: customerInternalId[0] },
     ]
 
-    await Promise.all(reservations.map(async (reservation) => {
-      await createReservation(reservation)
+    await Promise.all(devReservations.map(async (reservation) => {
+      await reservations.create(reservation)
       .then((result) => {console.log(result)})
     }))
     
@@ -109,7 +110,7 @@ async function insertInitialData() {
   }
 }
 
-async function seed() {
+async function  seed(){
   try {
     await dropTables();
     await createTables();
@@ -121,4 +122,6 @@ async function seed() {
   }
 }
 
-module.exports = seed;
+if(require.main === module){
+  seed()
+}
