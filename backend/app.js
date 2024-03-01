@@ -3,6 +3,7 @@ const cors = require('cors');
 const pool = require('./Client');  // Importing the PostgreSQL client
 const seed = require('./database/seed');
 const submissionRoutes = require('./routes/submissionRoutes');
+const userRoutes = require("./routes/userRoutes")
 const dotenv = require('dotenv');
 dotenv.config();
 const pg = require('pg');
@@ -20,13 +21,13 @@ pool.connect()
 app.use(cors()); // Configure CORS as needed
 app.use(express.json()); // for parsing application/json
 
-// const customerRouter = require('./routes/customerRoutes');
-// app.use('/customers', customerRouter);
+const userRouter = require('./routes/userRoutes');
+app.use('/users', userRouter);
 
 const reservationRouter = require('./routes/reservationRoutes');
 app.use('/reservation', reservationRouter);
 
-const adminRouter = require('./routes/adminRoutes');
+const adminRouter = require('./routes/adminRoutes');  
 app.use('/admin', adminRouter);
 
 

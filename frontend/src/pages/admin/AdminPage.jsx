@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { getCustomers } from "../../api/customeApi";
 
 import CustomersTable from "./helper/CustomersTable";
 
 import "../../styles/pages_styles/admin.sass";
-
+import { getReservations } from "../../api/reservationApi";
 const AdminPage = () => {
     const [customers, setCustomers] = useState([]);
     useEffect(() => {
-        getCustomers().then((data) => {
+        getReservations().then((data) => {
+            console.log(data, "this is the data")
             data.map((customer) => {
                 customer.name = `${customer.first_name} ${customer.last_name}`;
                 return customer;
