@@ -1,11 +1,11 @@
-const { getCustomerByCustomerId } = require("../database/db");
+const { users, reservations, customers } = require('../database/helper');
 
 const userController = {};
 
 userController.createCustomer = async (req, res) => {
     try {
         const customer = req.body;
-        const newCustomer = await createCustomer(customer);
+        const newCustomer = await users.create(customer);
         res.status(201).json(newCustomer);
     } catch (error) {
         console.error('Error creating customer:', error);
@@ -16,7 +16,7 @@ userController.createCustomer = async (req, res) => {
 userController.createReservation = async (req, res) => {
     try {
         const reservation = req.body;
-        const newReservation = await createReservation(reservation);
+        const newReservation = await reservations.create(reservation);
         res.status(201).json(newReservation);
     } catch (error) {
         console.error('Error creating reservation:', error);
@@ -27,7 +27,8 @@ userController.createReservation = async (req, res) => {
 userController.updateReservation = async (req, res) => {
     try {
         const { reservationId } = req.params;
-        const updatedReservation = await updateReservation(reservationId, req.body);
+        req.body.reservationId = reservationId;
+        const updatedReservation = await reservations.update(req.body);
         res.status(200).json(updatedReservation);
     } catch (error) {
         console.error('Error updating reservation:', error);
@@ -38,7 +39,8 @@ userController.updateReservation = async (req, res) => {
 userController.handleUpdateCustomerByCustomerId = async (req, res) => {
     try {
         const { customerId } = req.params;
-        const updatedCustomer = await updateCustomerByCustomerId(customerId, req.body);
+        req.body.customerId = customerId;
+        const updatedCustomer = await customers.update.byCustomerId(req.body);
         res.status(200).json(updatedCustomer);
     } catch (error) {
         console.error('Error updating customer:', error);
@@ -49,7 +51,7 @@ userController.handleUpdateCustomerByCustomerId = async (req, res) => {
 userController.handleGetCustomerByCustomerId = async (req, res) => {
     try {
         const {customerId} = req.params;
-        const getCustomer = await getCustomerByCustomerId(customerId)
+        const getCustomer = await customers.get.byCustomerId(customerId)
         res.status(200).json(getCustomer)
     } catch (error) {
         console.error('Error getting customer:', error);

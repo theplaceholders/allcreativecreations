@@ -1,14 +1,4 @@
-const {
-    updateCustomerByCustomerId,
-    getCustomerByCustomerId,
-    getCustomerByInternalId,
-    createUser,
-    updateUserByUsername,
-    getUserByUsername,
-    getUserByEmail,
-    getUserByRole,
-    getAllCustomers
-} = require('../database/db'); // Import database functions
+const { users, customers } = require('../database/helper');
 
 const AdminController = {};
 
@@ -17,7 +7,8 @@ const AdminController = {};
 AdminController.updateCustomer = async (req, res) => {
     try {
         const { customerId } = req.params;
-        const updatedCustomer = await updateCustomerByCustomerId(customerId, req.body);
+        req.body.customerId = customerId;
+        const updatedCustomer = await customers.update.byCustomerId(req.body);
         res.status(200).json(updatedCustomer);
     } catch (error) {
         console.error('Error updating customer:', error);
@@ -30,7 +21,7 @@ AdminController.updateCustomer = async (req, res) => {
 AdminController.handleGetCustomerByCustomerId = async (req, res) => {
     try {
         const { customerId } = req.params;
-        const customer = await getCustomerByCustomerId(customerId);
+        const customer = await customers.get.byCustomerId(customerId);
         res.status(200).json(customer);
     } catch (error) {
         console.error('Error fetching customer by customer ID:', error);
@@ -41,7 +32,7 @@ AdminController.handleGetCustomerByCustomerId = async (req, res) => {
 AdminController.getCustomerByInternalId = async (req, res) => {
     try {
         const { internalId } = req.params;
-        const customer = await getCustomerByInternalId(internalId);
+        const customer = await customers.get.__byInternalId(internalId);
         res.status(200).json(customer);
     } catch (error) {
         console.error('Error fetching customer by internal ID:', error);
@@ -52,7 +43,7 @@ AdminController.getCustomerByInternalId = async (req, res) => {
 AdminController.createUser = async (req, res) => {
     try {
         const user = req.body;
-        const newUser = await createUser(user);
+        const newUser = await users.create(user);
         res.status(201).json(newUser);
     } catch (error) {
         console.error('Error creating user:', error);
@@ -63,7 +54,7 @@ AdminController.createUser = async (req, res) => {
 AdminController.updateUser = async (req, res) => {
     try {
         const { username } = req.params;
-        const updatedUser = await updateUserByUsername(username, req.body);
+        const updatedUser = await users.update.byUsername(username, req.body);
         res.status(200).json(updatedUser);
     } catch (error) {
         console.error('Error updating user:', error);
@@ -74,7 +65,7 @@ AdminController.updateUser = async (req, res) => {
 AdminController.getUserByUsername = async (req, res) => {
     try {
         const { username } = req.params;
-        const user = await getUserByUsername(username);
+        const user = await users.get.byUsername(username);
         res.status(200).json(user);
     } catch (error) {
         console.error('Error fetching user by username:', error);
@@ -85,7 +76,7 @@ AdminController.getUserByUsername = async (req, res) => {
 AdminController.getUserByEmail = async (req, res) => {
     try {
         const { email } = req.params;
-        const user = await getUserByEmail(email);
+        const user = await users.get.byEmail(email);
         res.status(200).json(user);
     } catch (error) {
         console.error('Error fetching user by email:', error);
@@ -96,7 +87,7 @@ AdminController.getUserByEmail = async (req, res) => {
 AdminController.getUserByRole = async (req, res) => {
     try {
         const { role } = req.params;
-        const user = await getUserByRole(role);
+        const user = await users.get.byRole(role);
         res.status(200).json(user);
     } catch (error) {
         console.error('Error fetching user by role:', error);
@@ -106,7 +97,7 @@ AdminController.getUserByRole = async (req, res) => {
 
 AdminController.handleGetAllCustomers = async (req, res) => {
     try {
-        const customers = await getAllCustomers();
+        const customers = await customers.get.all();
         res.status(200).json(customers);
     } catch (error) {
         console.error('Error fetching all customers:', error);
