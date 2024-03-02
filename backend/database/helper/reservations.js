@@ -28,18 +28,18 @@ const reservations = {
                 }
             },
         
-    servicesByReservationId: async (reservationId) => {
-            try {
-                const result = await pool.query(`
-                    SELECT services.* FROM services
-                    INNER JOIN reservation_services ON services.internal_id = reservation_services.service_id
-                    WHERE reservation_services.reservation_id = $1;
-                `, [reservationId]);
-                return result.rows;
-            } catch (e) {
-                console.error('Error getting services by reservation ID!!!');
-            }
-        },
+        servicesByReservationId: async (reservationId) => {
+                try {
+                    const result = await pool.query(`
+                        SELECT services.* FROM services
+                        INNER JOIN reservation_services ON services.internal_id = reservation_services.service_id
+                        WHERE reservation_services.reservation_id = $1;
+                    `, [reservationId]);
+                    return result.rows;
+                } catch (e) {
+                    console.error('Error getting services by reservation ID!!!');
+                }
+            },
     },
     update:{
         byReservationId:

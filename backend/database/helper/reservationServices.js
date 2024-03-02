@@ -2,7 +2,7 @@ const pool = require('../../Client');
 
 const reservationServices = {
     create:
-        async (service_id, reservation_id) => {
+        async ({service_id, reservation_id}) => {
             try {
                 const result = await pool.query(`
                     INSERT INTO reservation_services (service_id, reservation_id)
@@ -15,3 +15,5 @@ const reservationServices = {
             }
         }
 };
+
+module.exports = reservationServices;

@@ -60,7 +60,7 @@ async function createTables() {
         );
         CREATE TABLE reservation_services(
           internal_id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-          reservation_id UUID REFERENCES customers(internal_id) NOT NULL,
+          reservation_id UUID REFERENCES reservations(internal_id) NOT NULL,
           service_id UUID REFERENCES services(internal_id) NOT NULL,
           CONSTRAINT unique_reservation_service UNIQUE (reservation_id, service_id)
         );
@@ -146,6 +146,23 @@ async function insertInitialData() {
       devServices.map(async (service) => {
         await services.create(service)
         .then((result) => serviceInternalId.push(result[0].internal_id))
+      })
+    );
+
+    const devReservationServices = [
+      {reservation_id: reservationInternalId[0], service_id: serviceInternalId[0]},
+      {reservation_id: reservationInternalId[0], service_id: serviceInternalId[1]},
+      {reservation_id: reservationInternalId[1], service_id: serviceInternalId[2]},
+      {reservation_id: reservationInternalId[1], service_id: serviceInternalId[3]},
+      {reservation_id: reservationInternalId[2], service_id: serviceInternalId[4]},
+      {reservation_id: reservationInternalId[2], service_id: serviceInternalId[5]},
+      {reservation_id: reservationInternalId[3], service_id: serviceInternalId[0]},
+    ];
+
+    await Promise.all(
+      devReservationServices.map(async (reservationService) => {
+        await reservationServices.create(reservationService)
+        .then((result) => console.log(result))
       })
     );
 
