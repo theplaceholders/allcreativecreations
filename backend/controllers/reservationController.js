@@ -42,4 +42,19 @@ reservationController.getAllReservationsWithCustomerInfo = async (req, res) => {
     }
 };
 
+
+
+const ReservationController = {};
+
+ReservationController.getReservationServices = async (req, res) => {
+    try {
+        const { reservationId } = req.params;
+        const services = await getServicesByReservationId(reservationId);
+        res.status(200).json(services);
+    } catch (error) {
+        console.error('Error getting services for reservation:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
 module.exports = reservationController;

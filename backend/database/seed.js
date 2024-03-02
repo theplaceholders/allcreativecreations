@@ -28,7 +28,7 @@ async function createTables() {
   try {
     console.log("Starting to build tables...");
 
-    await pool.query(`
+    await pool.query(`  
         CREATE TABLE users(
           internal_id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
           username VARCHAR(255) UNIQUE NOT NULL,
