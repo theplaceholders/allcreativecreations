@@ -5,13 +5,13 @@ const customers = {
         async (customer) => {
             try {
                 const result = await pool.query(`
-                    INSERT INTO customers (customer_ID, first_name, last_name, email)
+                    INSERT INTO customers (customer_id, first_name, last_name, email)
                     VALUES ($1, $2, $3, $4)
                     RETURNING *;
-                `, [customer.customer_ID, customer.first_name, customer.last_name, customer.email]);
+                `, [customer.customer_id, customer.first_name, customer.last_name, customer.email]);
                 return result.rows;
             } catch (e) {
-                console.error('Error creating customer!!!');
+                console.error('Error creating customer!!!', e);
             }
         },
     
@@ -32,7 +32,7 @@ const customers = {
             async (customerId) => {
                 try {
                     const result = await pool.query(`
-                        SELECT * FROM customers WHERE customer_ID = $1;
+                        SELECT * FROM customers WHERE customer_id = $1;
                     `, [customerId]);
                     return result.rows;
                 } catch (e) {
@@ -43,7 +43,7 @@ const customers = {
             async (internalId) => {
                 try {
                     const result = await pool.query(`
-                        SELECT * FROM customers WHERE internal_ID = $1;
+                        SELECT * FROM customers WHERE internal_id = $1;
                     `, [internalId]);
                     return result.rows;
                 } catch (e) {
@@ -58,17 +58,17 @@ const customers = {
                 try {
                     let searchBy = "";
                     let id = "";
-                    if(!customer.customer_ID || !customer.internal_ID) {
-                        throw new Error('customer_ID or internal_ID is required to update customer!!!');
-                    } else if(customer.customer_ID){
-                        searchBy = 'customer_ID';
-                        id = customer.customer_ID;
+                    if(!customer.customer_id || !customer.internal_id) {
+                        throw new Error('customer_id or internal_id is required to update customer!!!');
+                    } else if(customer.customer_id){
+                        searchBy = 'customer_id';
+                        id = customer.customer_id;
                     } else {
-                        searchBy = 'internal_ID';
-                        id = customer.internal_ID;
+                        searchBy = 'internal_id';
+                        id = customer.internal_id;
                     }
             
-                    delete customer.customer_ID;
+                    delete customer.customer_id;
                     const setStr = Object.keys(customer).map(
                         (key, index) => `"${key}"=$${index + 1}`
                       ).join(',')

@@ -5,13 +5,13 @@ const reservations = {
         async (reservation) => {
             try {
                 const result = await pool.query(`
-                    INSERT INTO reservations (reservation_ID, start_date, end_date, customer_ID)
+                    INSERT INTO reservations (reservation_id, start_date, end_date, customer_id)
                     VALUES ($1, $2, $3, $4)
                     RETURNING *;
-                `, [reservation.reservation_ID, reservation.start_date, reservation.end_date, reservation.customer_ID]);
+                `, [reservation.reservation_id, reservation.start_date, reservation.end_date, reservation.customer_id]);
                 return result.rows;
             } catch (e) {
-                console.error('Error creating reservation!!!');
+                console.error('Error creating reservation!!!', e);
             }
         },
 
@@ -47,17 +47,17 @@ const reservations = {
                 try {
                     let searchBy = "";
                     let id = "";
-                    if(!reservation.reservation_ID || !reservation.internal_ID) {
-                        throw new Error('reservation_ID or internal_ID is required to update reservation!!!');
-                    } else if(reservation.reservation_ID){
-                        searchBy = 'reservation_ID';
-                        id = reservation.reservation_ID;
+                    if(!reservation.reservation_id || !reservation.internal_id) {
+                        throw new Error('reservation_id or internal_id is required to update reservation!!!');
+                    } else if(reservation.reservation_id){
+                        searchBy = 'reservation_id';
+                        id = reservation.reservation_id;
                     } else {
-                        searchBy = 'internal_ID';
-                        id = reservation.internal_ID;
+                        searchBy = 'internal_id';
+                        id = reservation.internal_id;
                     }
 
-                    delete reservation.reservation_ID;
+                    delete reservation.reservation_id;
                     const setStr = Object.keys(reservation).map(
                         (key, index) => `"${key}"=$${index + 1}`
                       ).join(',')
