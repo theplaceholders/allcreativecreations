@@ -62,6 +62,7 @@ async function createTables() {
           internal_id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
           reservation_id UUID REFERENCES reservations(internal_id) NOT NULL,
           service_id UUID REFERENCES services(internal_id) NOT NULL,
+          confirmed BOOLEAN DEFAULT FALSE,
           CONSTRAINT unique_reservation_service UNIQUE (reservation_id, service_id)
         );
     `);
@@ -182,6 +183,8 @@ async function seed() {
   } catch (e) {
     console.error("Error seeding database!!!");
     throw e;
+  } finally {
+    pool.end();
   }
 }
 
