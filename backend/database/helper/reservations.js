@@ -1,4 +1,5 @@
 const pool = require('../../Client');
+const customers = require('./customers');
 
 const reservations = {
     create:
@@ -19,12 +20,24 @@ const reservations = {
         all:
             async () => {
                 try {
-                    const result = await pool.query(`
+                    const reservations = await pool.query(`
                         SELECT * FROM reservations;
                     `);
-                    return result.rows;
+                    await Promise.all(reservations.rows.map(async (reservation) => {
+                        const customer = await customers.get.__byInternalId(reservation.customer_id);
+                        reservation.customer = customer;
+                        delete reservation.customer_id;
+
+                        const services = await pool.query(`
+                            SELECT services.* FROM services
+                            INNER JOIN reservation_services ON services.internal_id = reservation_services.service_id
+                            WHERE reservation_services.reservation_id = $1;
+                        `, [reservation.internal_id]);
+                        reservation.services = services.rows;
+                    }));
+                    return reservations.rows;
                 } catch (e) {
-                    console.error('Error getting all reservations!!!');
+                    console.error('Error getting all reservations!!!', e);
                 }
             },
         

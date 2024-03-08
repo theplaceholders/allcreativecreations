@@ -42,10 +42,10 @@ const customers = {
         __byInternalId:
             async (internalId) => {
                 try {
-                    const result = await pool.query(`
+                    const {rows:[customer]} = await pool.query(`
                         SELECT * FROM customers WHERE internal_id = $1;
                     `, [internalId]);
-                    return result.rows;
+                    return customer;
                 } catch (e) {
                     console.error('Error getting customer by internal ID!!!');
                 }
