@@ -9,9 +9,9 @@ const pool = new Pool({
   PGDATABASE: process.env.PGDATABASE,
   PGPORT: process.env.PGPORT,
 
-  ssl: {
-    rejectUnauthorized: false
-  }
+  // ssl: {
+  //   rejectUnauthorized: false
+  // }
   
   
 });
