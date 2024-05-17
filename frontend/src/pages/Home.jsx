@@ -1,29 +1,28 @@
-import { useState } from 'react';
-import '../styles/pages_styles/home.sass';
+import './home.sass';
+
+import { AppointmentRequestForm } from '../components';
 
 function Home() {
-  const [value, onChange] = useState(new Date());
   return (
     <div className='HomeBody'>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
-      <h1>All Creative Creations</h1>
+      <section name="welcome">
+        <h1>All Creative Creations</h1>
+      </section>
+      <section name="info-1">
+        <h1>All Creative Creations</h1>
+      </section>
+      <section name="info-2">
+        <h1>All Creative Creations</h1>
+      </section>
+      <section name="info-3">
+        <h1>All Creative Creations</h1>
+      </section>
+      <section name="contact">
+        <AppointmentRequestForm />
+      </section>
+      <section>
+        <h1>test</h1>
+      </section>
     </div>
   );
 }
