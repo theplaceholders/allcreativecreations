@@ -17,25 +17,82 @@ import Checkbox from '@mui/material/Checkbox';
 
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
-import StarBorder from '@mui/icons-material/StarBorder';
 
 
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import CheckboxList from './Helper/CheckboxList';
+import Button from '@mui/material/Button';
 
 const AppointmentRequestForm = () => {
     const [expand, onExpand] = useState({service: false, events: false});
+    const [list, setList] = useState({})
+
+    useEffect(() => {
+        //dev variables remove when changing to production
+        const serviceList = [
+            'service-1',
+            'service-2',
+            'service-3',
+            'service-4',
+            'service-5',
+            'service-6',
+            'service-7',
+            'service-8',
+            'service-9',
+            'service-10',
+        ]
+        const eventList = [
+            'event-1',
+            'event-2',
+            'event-3',
+            'event-4',
+            'event-5',
+            'event-6',
+            'event-7',
+            'event-8',
+            'event-9',
+            'event-10'
+        ]
+
+        async function fetchList(){
+            const serviceObj = serviceList.reduce((acc, current) =>{
+                acc[current] = false
+                return acc
+            }, {})
+
+            const eventObj = eventList.reduce((acc, current) =>{
+                acc[current] = false
+                return acc
+            }, {})
+            setList((prev)=> {return {...prev, service:{...serviceObj}}})
+            setList((prev)=> {return {...prev, event:{...eventObj}}})
+        }
+        fetchList()
+    }, [])
+
     const minDate = dayjs('2024-03-12')
 
     function handleExpand(expandEvent){
         onExpand({...expand, [expandEvent]: !expand[expandEvent]})
     }
 
-    useEffect(()=>{console.log(expand)},[expand])
+    function submitForm(){
+        console.log("submitting form")
+
+        let selected = Object.keys(list).reduce((acc, service)=>{
+            acc[service] = Object.keys(list[service]).filter((key) => list[service][key]).map((key)=>{
+                if(list[service][key])
+                    return key
+            })
+            return acc
+        },{})
+
+        console.log(selected)
+    }
 
     return(
         <div>
@@ -80,59 +137,35 @@ const AppointmentRequestForm = () => {
                         }}>
                             <ListItemButton onClick={() => handleExpand('service')}>
                                 <ListItemIcon>
-                                    <InboxIcon />
+                                    
                                 </ListItemIcon>
-                                <ListItemText primary="Inbox" />
+                                <ListItemText primary="Services" />
                                 {expand.service ? <ExpandLess /> : <ExpandMore />}
                             </ListItemButton>
-                            <Collapse in={expand.service} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding>
-                                    <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemIcon>
-                                            <Checkbox />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Starred" />
-                                    </ListItemButton>
-                                </List>
-                            </Collapse>
+                            {
+                                Object.keys(list).length > 0 &&
+                                <Collapse in={expand.service}>
+                                    <CheckboxList listName="service" listManager={{list, setList}}/>
+                                </Collapse>
+                            }
                         </Box>
                         <Box style={{
                             flex: 1
                         }}>
                             <ListItemButton onClick={() => handleExpand('events')}>
                                 <ListItemIcon>
-                                    <InboxIcon />
+                                    
                                 </ListItemIcon>
-                                <ListItemText primary="Inbox" />
+                                <ListItemText primary="Events" />
                                 {expand.events ? <ExpandLess /> : <ExpandMore />}
                             </ListItemButton>
-                            <Collapse in={expand.events} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding>
-                                    <ListItemButton sx={{ pl: 4 }}>
-                                        <ListItemIcon>
-                                        <StarBorder />
-                                        </ListItemIcon>
-                                        <ListItemText primary="Starred" />
-                                    </ListItemButton>
-                                </List>
-                            </Collapse>
+                            {
+                                Object.keys(list).length > 0 &&
+                                <Collapse in={expand.events}>
+                                    <CheckboxList listName="event" listManager={{list, setList}}/>
+                                </Collapse>
+                            }
                         </Box>
-                            
-                        {/* <FormGroup >
-                            <FormControlLabel control={<Checkbox />} label="Label" />
-                            <FormControlLabel control={<Checkbox />} label="Label" />
-                            <FormControlLabel control={<Checkbox />} label="Label" />
-                            <FormControlLabel control={<Checkbox />} label="Label" />
-                            <FormControlLabel control={<Checkbox />} label="Label" />
-                            <FormControlLabel control={<Checkbox />} label="Label" />
-                            <FormControlLabel control={<Checkbox />} label="Label" />
-                            <FormControlLabel control={<Checkbox />} label="Label" />
-                            <FormControlLabel control={<Checkbox />} label="Label" />
-                            <FormControlLabel control={<Checkbox />} label="Label" />
-                            <FormControlLabel control={<Checkbox />} label="Label" />
-                            <FormControlLabel control={<Checkbox />} label="Label" />
-                        </FormGroup>
-                        */}
                     </Box>
                 </FormControl>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -142,6 +175,7 @@ const AppointmentRequestForm = () => {
                     minDate={minDate}
                     />
                 </LocalizationProvider>
+                <Button onClick={() => submitForm()}>Submit</Button>
             </Box>
         </div>
     )
