@@ -99,8 +99,8 @@ const AppointmentRequestForm = () => {
         onExpand({...expand, [expandEvent]: !expand[expandEvent]})
     }
 
-    function submitForm(event){
-        event.preventDefault()
+    function submitForm(e){
+        e.preventDefault()
         console.log("submitting form")
 
         function checkForm(){
@@ -149,11 +149,20 @@ const AppointmentRequestForm = () => {
 
         let submitObj = {...form}
         delete submitObj.constant
+        submitObj.selected = selected
         //format submit to month-day-year
         submitObj.calendar = `${submitObj.calendar.month()+1}-${submitObj.calendar.date()}-${submitObj.calendar.year()}`
         console.log(JSON.stringify(submitObj))
 
         //reset form
+        let service = list.service
+        let event = list.event
+
+        Object.keys(service).map((key)=>{service[key] = false})
+        Object.keys(event).map((key)=>{event[key] = false})
+
+        setList((prev)=>{return {...prev, service:{...service}, event:{...event}}})
+
         setForm((prev)=>{return {...prev, 
             fname:"",
             lname:"",
