@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
 import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
@@ -25,6 +26,31 @@ import Button from '@mui/material/Button';
 const AppointmentRequestForm = () => {
     const [expand, onExpand] = useState({service: false, events: false});
     const [list, setList] = useState({})
+
+    let bookDaysInAdvance = 7
+    let maxFutureMonths = 3
+    let firstAvailable = dayjs().add(bookDaysInAdvance, 'day')
+    dayjs.extend(utc)
+    const [form, setForm] = useState({
+        constant:{
+            minDate: dayjs().add(bookDaysInAdvance, 'day'),
+            maxDate: dayjs().add(maxFutureMonths, 'month')
+        },
+        errorMessage:{
+            fname:"",
+            lname:"",
+            email:"",
+            phone:"",
+            address:"",
+            calendar:""
+        },
+        fname:"",
+        lname:"",
+        email:"",
+        phone:"",
+        address:"",
+        calendar:firstAvailable
+    })
 
     useEffect(() => {
         //dev variables remove when changing to production
@@ -69,14 +95,49 @@ const AppointmentRequestForm = () => {
         fetchList()
     }, [])
 
-    const minDate = dayjs('2024-03-12')
-
     function handleExpand(expandEvent){
         onExpand({...expand, [expandEvent]: !expand[expandEvent]})
     }
 
-    function submitForm(){
+    function submitForm(event){
+        event.preventDefault()
         console.log("submitting form")
+
+        function checkForm(){
+            let errorMessage={
+                fname:"",
+                lname:"",
+                email:"",
+                phone:"",
+                address:"",
+                calendar:""
+            }
+            let noError = true
+
+            if(!form.fname){
+                errorMessage.fname = "Missing first name"
+                noError = false
+            }
+
+            if(!form.lname){
+                errorMessage.lname = "Missing last name"
+                noError = false
+            }
+
+            if(!form.email){
+                errorMessage.email = "Missing email"
+                noError = false
+            } else if(!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email)){
+                errorMessage.email = "not a valid email format"
+                noError = false
+            }
+
+            setForm((prev)=>{return {...prev, errorMessage:{...errorMessage}}})
+            return noError
+        }
+
+        if(!checkForm())
+            return
 
         let selected = Object.keys(list).reduce((acc, service)=>{
             acc[service] = Object.keys(list[service]).filter((key) => list[service][key]).map((key)=>{
@@ -86,7 +147,25 @@ const AppointmentRequestForm = () => {
             return acc
         },{})
 
-        console.log(selected)
+        let submitObj = {...form}
+        delete submitObj.constant
+        //format submit to month-day-year
+        submitObj.calendar = `${submitObj.calendar.month()+1}-${submitObj.calendar.date()}-${submitObj.calendar.year()}`
+        console.log(JSON.stringify(submitObj))
+
+        //reset form
+        setForm((prev)=>{return {...prev, 
+            fname:"",
+            lname:"",
+            email:"",
+            phone:"",
+            address:"",
+        }})
+    }
+
+    function handleInputUpdate(e){
+        // console.log(e.target.value)
+        setForm((prev)=>{return {...prev, [e.target.name]:e.target.value}})
     }
 
     return(
@@ -103,23 +182,51 @@ const AppointmentRequestForm = () => {
                     <TextField
                         label="First name"
                         variant="filled"
+                        name="fname"
+                        value={form.fname}
+                        onChange={(e)=>handleInputUpdate(e)}
+                        error={form.errorMessage.fname.length > 0}
+                        helperText={form.errorMessage.fname}
+                        required
                     />
                     <TextField
                         label="Last name"
                         variant="filled"
+                        name="lname"
+                        value={form.lname}
+                        onChange={(e)=>handleInputUpdate(e)}
+                        error={form.errorMessage.lname.length > 0}
+                        helperText={form.errorMessage.lname}
+                        required
                     />
                 </Box>
                 <TextField
                     label="Email address"
                     variant="filled"
+                    name="email"
+                    value={form.email}
+                    onChange={(e)=>handleInputUpdate(e)}
+                    error={form.errorMessage.email.length > 0}
+                    helperText={form.errorMessage.email}
+                    required
                 />
                 <TextField
                     label="Phone number"
                     variant="filled"
+                    name="phone"
+                    value={form.phone}
+                    onChange={(e)=>handleInputUpdate(e)}
+                    error={form.errorMessage.phone.length > 0}
+                    helperText={form.errorMessage.phone}
                 />
                 <TextField
                     label="Event address"
                     variant="filled"
+                    name="address"
+                    value={form.address}
+                    onChange={(e)=>handleInputUpdate(e)}
+                    error={form.errorMessage.address.length > 0}
+                    helperText={form.errorMessage.address}
                 />
                 <FormControl >
                     <Box style={{
@@ -167,10 +274,18 @@ const AppointmentRequestForm = () => {
                     <DateCalendar 
                     showDaysOutsideCurrentMonth 
                     fixedWeekNumber={6}
-                    minDate={minDate}
+                    minDate={form.constant.minDate}
+                    maxDate={form.constant.maxDate}
+                    views={['month', 'day']}
+                    name="calendar"
+                    value={form.calendar}
+                    onChange={(val) => {
+                        setForm((prev)=>{return {...prev, calendar:val.local()}})
+                        console.log(val.local())
+                    }}
                     />
                 </LocalizationProvider>
-                <Button onClick={() => submitForm()}>Submit</Button>
+                <Button type="submit" onClick={(event) => submitForm(event)}>Submit</Button>
             </Box>
         </div>
     )

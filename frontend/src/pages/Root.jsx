@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { NavBar } from "../components";
 
-import "../styles/pages_styles/root.sass";
+import "./root.sass";
 
 const Root = () => {
   

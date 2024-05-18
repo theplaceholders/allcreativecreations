@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import logo from '../assets/logo_without_text.png'
-import '../styles/components_styles/navbar.sass'
+import './navbar.sass'
 import MenuIcon from './MenuIcon'
 import MenuPanel from './MenuPanel'
 const NavBar = () => {

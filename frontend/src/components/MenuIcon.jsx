@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import '../styles/components_styles/menuIcon.sass';
+import './menuIcon.sass';
 
 const MenuIcon = ({handleClickEvent}) => {
     return(
