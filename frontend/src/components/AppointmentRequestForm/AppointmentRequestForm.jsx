@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import checkForm from './Helper/CheckForm';
 import './AppointmentRequestForm.sass'
 
 import Box from '@mui/material/Box';
@@ -22,6 +23,7 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import CheckboxList from './Helper/CheckboxList';
 import Button from '@mui/material/Button';
+import FormLabel from '@mui/material/FormLabel';
 
 const AppointmentRequestForm = () => {
     const [expand, onExpand] = useState({service: false, events: false});
@@ -101,42 +103,8 @@ const AppointmentRequestForm = () => {
 
     function submitForm(e){
         e.preventDefault()
-        console.log("submitting form")
 
-        function checkForm(){
-            let errorMessage={
-                fname:"",
-                lname:"",
-                email:"",
-                phone:"",
-                address:"",
-                calendar:""
-            }
-            let noError = true
-
-            if(!form.fname){
-                errorMessage.fname = "Missing first name"
-                noError = false
-            }
-
-            if(!form.lname){
-                errorMessage.lname = "Missing last name"
-                noError = false
-            }
-
-            if(!form.email){
-                errorMessage.email = "Missing email"
-                noError = false
-            } else if(!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email)){
-                errorMessage.email = "not a valid email format"
-                noError = false
-            }
-
-            setForm((prev)=>{return {...prev, errorMessage:{...errorMessage}}})
-            return noError
-        }
-
-        if(!checkForm())
+        if(!checkForm({form, setForm}))
             return
 
         let selected = Object.keys(list).reduce((acc, service)=>{
@@ -149,6 +117,7 @@ const AppointmentRequestForm = () => {
 
         let submitObj = {...form}
         delete submitObj.constant
+        delete submitObj.errorMessage
         submitObj.selected = selected
         //format submit to month-day-year
         submitObj.calendar = `${submitObj.calendar.month()+1}-${submitObj.calendar.date()}-${submitObj.calendar.year()}`
@@ -290,7 +259,6 @@ const AppointmentRequestForm = () => {
                     value={form.calendar}
                     onChange={(val) => {
                         setForm((prev)=>{return {...prev, calendar:val.local()}})
-                        console.log(val.local())
                     }}
                     />
                 </LocalizationProvider>

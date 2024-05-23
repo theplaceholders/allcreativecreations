@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { NavBar } from "../components";
+import { FootNav, NavBar } from "../components";
 
 import "./root.sass";
 
@@ -13,7 +13,9 @@ const Root = () => {
       <main>
         <Outlet context={{}} />
       </main>
-      <footer></footer>
+      <footer>
+        <FootNav />
+      </footer>
     </>
   );
 };
