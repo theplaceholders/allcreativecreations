@@ -1,10 +1,10 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  server:{
-    host: true
-  },
   plugins: [react()],
-})
+  server: {
+    host: true, // or specify a specific host like '0.0.0.0' to listen on all addresses
+  }
+
+});
