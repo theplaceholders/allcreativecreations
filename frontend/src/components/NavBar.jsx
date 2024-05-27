@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from 'react';
 import logo from '../assets/logo_without_text.png';
 import '../styles/components_styles/navbar.sass';
@@ -5,6 +6,13 @@ import MenuIcon from './MenuIcon';
 import MenuPanel from './MenuPanel';
 import { Link } from 'react-router-dom';
 
+=======
+import { useEffect, useState } from 'react'
+import logo from '../assets/logo_without_text.png'
+import './navbar.sass'
+import MenuIcon from './MenuIcon'
+import MenuPanel from './MenuPanel'
+>>>>>>> f4039fe37e707e4ae8688226bcdeaf6d0f8df6cf
 const NavBar = () => {
     const [showMenuPanel, setShowMenuPanel] = useState(false);
 

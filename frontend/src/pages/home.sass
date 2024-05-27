@@ -1,0 +1,31 @@
+@use '../styles/global/_main-color' as main
+.HomeBody
+  display: flex
+  flex-direction: column
+  margin: 0
+  min-height: 100vh  // Adjusted from 200vh to 100vh
+  width: 100vw   // Corrected the typo and adjusted the width
+  max-width: 100%
+  background-color: main.$background-color-light
+  color: main.$text-color-light
+  
+  section
+    display: flex
+    justify-content: center
+    width: 100%
+    min-height: 600px //temporary to make page scrollable
+    
+    &:first-child
+      min-height:100vh
+
+    &:nth-child(3n + 1)
+      background-color: main.$background-color-light
+      color: main.$text-color-light
+
+    &:nth-child(3n + 2)
+      background-color: main.$background-color-light-2
+      color: main.$text-color-light
+
+    &:nth-child(3n + 3)
+      background-color: main.$background-color-light-3
+      color: main.$background-color-light

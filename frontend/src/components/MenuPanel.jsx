@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
-import '../styles/components_styles/menuPanel.sass';
+import './menuPanel.sass';
 
 const MenuPanel = ({show, toggleShowMenuPanel}) => {
     function handleClickEvent(e){

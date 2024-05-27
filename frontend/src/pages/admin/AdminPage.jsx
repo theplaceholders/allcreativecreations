@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import CustomersTable from "./helper/CustomersTable";
 
-import "../../styles/pages_styles/admin.sass";
+import "./admin.sass";
 import { getReservations } from "../../api/reservationApi";
 const AdminPage = () => {
     const [customers, setCustomers] = useState([]);
