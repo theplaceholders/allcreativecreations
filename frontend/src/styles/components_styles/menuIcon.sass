@@ -1,24 +1,25 @@
-@use '../global/_main-color' as main
 #menu-icon
-    background-color: transparent
-    border: none
-    cursor: pointer
-    padding: 0 1rem
+  background-color: transparent
+  border: none
+  cursor: pointer
+  padding: 0 1rem
+
+  @media (min-width: 768px)
+    display: none
 
 .menu-icon__bar
-    width: 1.5rem
-    height: 0.3rem
-    margin: 0.2rem 0
-    background-color: black
-    border-radius: 0.2rem
-    z-index: 1
-    transition: ease-in-out 0.3s
+  width: 1.5rem
+  height: 0.3rem
+  margin: 0.2rem 0
+  background-color: black
+  border-radius: 0.2rem
+  z-index: 1
+  transition: ease-in-out 0.3s
 
 .close
-    .menu-icon__bar
-        &:nth-child(1)
-            transform: rotate(45deg) translate(0.3rem, 0.3rem)
-        &:nth-child(2)
-            opacity: 0
-        &:nth-child(3)
-            transform: rotate(-45deg) translate(0.35rem, -0.4rem)
+  .menu-icon__bar:nth-child(1)
+    transform: rotate(45deg) translate(0.3rem, 0.3rem)
+  .menu-icon__bar:nth-child(2)
+    opacity: 0
+  .menu-icon__bar:nth-child(3)
+    transform: rotate(-45deg) translate(0.35rem, -0.4rem)

@@ -1,20 +1,54 @@
 @use '../global/_main-color.sass' as main
-#navbar
-    width: 100vw
-    height: 4rem
-    display: flex
-    justify-content: space-between
-    background-color: rgba(main.$background-color-light, 0.85)
-    backdrop-filter: blur( 8px )
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2)
-    transition: ease-in-out 0.3s
 
-.navbar__logo
+#navbar
+  width: 100vw
+  height: 4rem
+  display: flex
+  justify-content: space-between
+  align-items: center
+  background-color: rgba(main.$background-color-light, 0.85)
+  backdrop-filter: blur(8px)
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2)
+  transition: ease-in-out 0.3s
+  position: relative
+
+  @media (min-width: 768px)
+    justify-content: flex-start
+
+  .navbar__logo
     display: flex
     justify-content: flex-start
     align-items: center
-    padding: .5rem 1.2rem
+    padding: 0.5rem 1.2rem
     overflow: hidden
+
     img
-        height: 48px
-        cursor: pointer
+      height: 48px
+      cursor: pointer
+
+  .navbar__menu
+    display: none
+
+    @media (min-width: 768px)
+      display: flex
+      position: absolute
+      left: 50%
+      transform: translateX(-50%)
+      align-items: center
+      list-style-type: none
+      margin: 0
+      padding: 0
+
+      .navbar__item
+        margin: 0 1rem
+
+        .navbar__link
+          text-decoration: none
+          color: main.$text-color-light
+          font-size: 1rem
+          font-weight: 500
+
+            
+    
+    
+

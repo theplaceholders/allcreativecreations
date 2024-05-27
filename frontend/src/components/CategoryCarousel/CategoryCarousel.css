@@ -1,0 +1,173 @@
+.carousel-container {
+  width: 100%;
+  height: 350px; /* Adjust as needed to provide space for dots */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel {
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 350px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  box-sizing: border-box;
+  pointer-events: none; /* Disable pointer events for inactive cards */
+  z-index: 1; /* Default z-index */
+}
+
+.carousel-card.active {
+  opacity: 1;
+  pointer-events: auto; /* Enable pointer events for active card */
+  z-index: 2; /* Bring active card on top */
+  animation: slideIn 0.5s forwards;
+}
+
+.carousel-card.exit {
+  opacity: 0;
+  pointer-events: none;
+  animation: slideOut 0.5s forwards;
+}
+
+.carousel-card.active-left {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 2;
+  animation: slideInLeft 0.5s forwards;
+}
+
+.carousel-card.exit-left {
+  opacity: 0;
+  pointer-events: none;
+  animation: slideOutLeft 0.5s forwards;
+}
+
+.carousel-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slideIn {
+  from {
+    left: 100%;
+    transform: translateX(0);
+  }
+  to {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  to {
+    left: -100%;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    left: -100%;
+    transform: translateX(0);
+  }
+  to {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  to {
+    left: 100%;
+    transform: translateX(0);
+  }
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: #717171;
+}
+
+.carousel-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0; /* Ensure no unexpected margins */
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #252525;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  text-align: center;
+  text-decoration: none; 
+  user-select: none; 
+  position: relative; 
+  box-sizing: border-box; 
+}
+
+.carousel-button:hover {
+  background-color: #565656;
+  transform: scale(1.05);
+}
+
+.carousel-button:active {
+  background-color: #404040;
+  transform: scale(0.95);
+}
+
+
+
+  
+  
