@@ -4,12 +4,6 @@ import { AppointmentRequestForm } from '../components';
 import Typography from '@mui/material/Typography';
 
 function Home() {
-<<<<<<< HEAD
-  const [value, onChange] = useState(new Date());
-
-  
-=======
-
   const styles = {
     withTitle:{
       fontSize: '3rem', 
@@ -26,8 +20,6 @@ function Home() {
       alignItems: 'center'
     }
   }
-
->>>>>>> f4039fe37e707e4ae8688226bcdeaf6d0f8df6cf
   return (
     <div className='HomeBody'>
       <section name="welcome">

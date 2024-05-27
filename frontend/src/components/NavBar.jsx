@@ -1,6 +1,5 @@
 
 import { useState } from 'react';
-import '../styles/components_styles/navbar.sass';
 import MenuIcon from './MenuIcon';
 import MenuPanel from './MenuPanel';
 import { Link } from 'react-router-dom';
