@@ -1,71 +1,68 @@
 @use '../styles/global/_main-color.sass' as main
 
 #navbar
-  width: 100vw
+  width: 100% !important
   height: 4rem
   display: flex
-  justify-content: center  // Center items horizontally
+  justify-content: space-between
   align-items: center
   background-color: rgba(main.$background-color-light, 0.85)
   backdrop-filter: blur(8px)
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2)
   transition: ease-in-out 0.3s
   position: relative
-  z-index: 10
-
-  .navbar-title
-    position: absolute
-    font-family: "Cormorant", serif
-    font-optical-sizing: auto
-    font-style: normal
-    top: 50%
-    left: 50%
-    transform: translate(-50%, -50%)
-    display: flex
-    flex-direction: column
-    justify-content: center
-    align-items: center
-    font-size: 1.5rem  
-
-  @media (min-width: 768px)
-    justify-content: flex-start
+  padding: 0 20px
 
   .navbar__logo
-    position: absolute
-    left: 1rem
     display: flex
+    flex: 0 1 auto
     justify-content: flex-start
     align-items: center
     padding: 0.5rem 1.2rem
     overflow: hidden
-    z-index: 15
 
     img
       height: 48px
       cursor: pointer
 
-  .navbar__menu
-    display: none
+  .navbar__center
+    flex: 1
+    display: flex
+    flex-direction: column
+    align-items: center
+    text-align: center
 
-    @media (min-width: 768px)
-      display: flex
-      position: relative
-      left: 50%
-      transform: translateX(-50%)
-      align-items: center
-      list-style-type: none
-      margin: 0
-      padding: 0
-      z-index: 10 // Lower than .navbar-title
+    .navbar-title
+      font-size: 1.5em
+      font-weight: bold
 
-      .navbar__item
-        margin: 0 1rem
 
-        .navbar__link
-          text-decoration: none
-          color: main.$text-color-light
-          font-size: 1rem
-          font-weight: 500
+    .navbar__menu
+      display: none
+
+      @media (min-width: 768px)
+        display: flex
+        position: relative
+        justify-content: center
+        align-items: center
+        list-style-type: none
+        margin: 0
+        padding: 0
+
+        .navbar__item
+          margin: 0 1rem
+
+          .navbar__link
+            text-decoration: none
+            color: main.$text-color-light
+            font-size: 1rem
+            font-weight: 500
+
+  #menu-icon
+    flex: 0 1 auto
+
+  @media (min-width: 768px)
+    justify-content: space-between
 
 
             
