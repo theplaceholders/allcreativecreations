@@ -30,6 +30,8 @@ const NavBar = () => {
                 <div className="navbar__logo">
                     <img src={logo} alt="logo" />
                 </div>
+                <div className="navbar-title">
+                    All Creative Creations
                 <ul className="navbar__menu">
                     <li className="navbar__item">
                         <Link to="/" className="navbar__link">Home</Link>
@@ -47,6 +49,8 @@ const NavBar = () => {
                         <Link to="/contact-us" className="navbar__link">Contact Us</Link>
                     </li>
                 </ul>
+                </div>
+                
                 <MenuIcon handleClickEvent={toggleShowMenuPanel} />
             </nav>
             <MenuPanel show={showMenuPanel} toggleShowMenuPanel={toggleShowMenuPanel} />
