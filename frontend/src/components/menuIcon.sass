@@ -1,10 +1,18 @@
-
 @use '../styles/global/_main-color' as main
+
 #menu-icon
-    background-color: transparent
-    border: none
-    cursor: pointer
-    padding: 0 2rem
+  background-color: transparent
+  border: none
+  cursor: pointer
+  padding: 0 2rem
+
+  // Initially hide the menu icon
+  display: none
+
+  // Media query for mobile view
+  @media (max-width: 768px)
+    display: block
+
 .menu-icon__bar
   width: 1.5rem
   height: 0.3rem
@@ -17,7 +25,11 @@
 .close
   .menu-icon__bar:nth-child(1)
     transform: rotate(45deg) translate(0.3rem, 0.3rem)
+  
   .menu-icon__bar:nth-child(2)
     opacity: 0
+
   .menu-icon__bar:nth-child(3)
     transform: rotate(-45deg) translate(0.35rem, -0.4rem)
+
+
