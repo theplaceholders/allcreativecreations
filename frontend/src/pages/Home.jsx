@@ -7,14 +7,14 @@ function Home() {
   const styles = {
     withTitle:{
       fontSize: '3rem', 
-      padding: '12rem', 
+      // padding: '12rem', 
       display: 'flex', 
       justifyContent: 'center', 
       alignItems: 'center'
     },
     withoutTitle:{
       fontSize: '3rem', 
-      padding: '2rem 12rem', 
+      // padding: '2rem 12rem', 
       display: 'flex', 
       justifyContent: 'center', 
       alignItems: 'center'
