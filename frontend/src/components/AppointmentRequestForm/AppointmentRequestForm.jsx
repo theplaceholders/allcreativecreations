@@ -147,14 +147,14 @@ const AppointmentRequestForm = () => {
     }
 
     return(
-        <div>
+        <div className='formDiv'>
             <Box 
                 component="form"
                 noValidate
                 autoComplete="off"
-                sx={{
-                    '& .MuiTextField-root': { m: 1},
-                }}
+                // sx={{
+                //     '& .MuiTextField-root': { m: 1},
+                // }}
             >
                 <Box>
                     <TextField
