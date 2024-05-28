@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import MenuIcon from './MenuIcon';
 import MenuPanel from './MenuPanel';
@@ -30,27 +29,28 @@ const NavBar = () => {
                 <div className="navbar__logo">
                     <img src={logo} alt="logo" />
                 </div>
-                <div className="navbar-title">
-                    All Creative Creations
-                <ul className="navbar__menu">
-                    <li className="navbar__item">
-                        <Link to="/" className="navbar__link">Home</Link>
-                    </li>
-                    <li className="navbar__item">
-                        <Link to="/" className="navbar__link">About</Link>
-                    </li>
-                    <li className="navbar__item">
-                        <Link to="/" className="navbar__link">Projects</Link>
-                    </li>
-                    <li className="navbar__item">
-                        <Link to="/" className="navbar__link">Reserve</Link>
-                    </li>
-                    <li className="navbar__item">
-                        <Link to="/contact-us" className="navbar__link">Contact Us</Link>
-                    </li>
-                </ul>
+                <div className="navbar__center">
+                    <div className="navbar-title">
+                        All Creative Creations
+                    </div>
+                    <ul className="navbar__menu">
+                        <li className="navbar__item">
+                            <Link to="/" className="navbar__link">Home</Link>
+                        </li>
+                        <li className="navbar__item">
+                            <Link to="/" className="navbar__link">About</Link>
+                        </li>
+                        <li className="navbar__item">
+                            <Link to="/" className="navbar__link">Projects</Link>
+                        </li>
+                        <li className="navbar__item">
+                            <Link to="/" className="navbar__link">Reserve</Link>
+                        </li>
+                        <li className="navbar__item">
+                            <Link to="/contact-us" className="navbar__link">Contact Us</Link>
+                        </li>
+                    </ul>
                 </div>
-                
                 <MenuIcon handleClickEvent={toggleShowMenuPanel} />
             </nav>
             <MenuPanel show={showMenuPanel} toggleShowMenuPanel={toggleShowMenuPanel} />
@@ -59,3 +59,4 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
