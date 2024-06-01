@@ -14,7 +14,7 @@ const Root = () => {
         <Outlet context={{}} />
       </main>
       <footer>
-        <FootNav />
+        {/* <FootNav /> */}
       </footer>
     </>
   );
