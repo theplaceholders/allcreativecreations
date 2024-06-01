@@ -23,7 +23,6 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import CheckboxList from './Helper/CheckboxList';
 import Button from '@mui/material/Button';
-import FormLabel from '@mui/material/FormLabel';
 
 const AppointmentRequestForm = () => {
     const [expand, onExpand] = useState({service: false, events: false});

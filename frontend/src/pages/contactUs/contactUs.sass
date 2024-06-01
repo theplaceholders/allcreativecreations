@@ -1,0 +1,23 @@
+@use '../../styles/global/_main-color' as main
+@use '../../styles/global/_animation' as anim
+#contactUsPage
+    width: 100%
+    height: 100%
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    div[name="spacer"]
+        min-height: 4rem
+    section
+        border-radius: 20px
+        padding: 10px
+    section[name="quotes&messages"]
+        background-color: rgba(main.$background-color-light-2 , 0.5)
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        
+    section[name="contactForm"]
+        // background-color: rgba(main.$background-color-light-2 , 0.5)

@@ -1,5 +1,6 @@
 export {default as Root} from "./Root"
 export {default as NotFound} from "./NotFound"
 export {default as Home} from "./Home"
-export {default as ContactUs} from "./ContactUs"
+export {default as ContactUs} from "./contactUs/ContactUs"
 export {default as AdminPage} from "./admin/AdminPage"
+export {default as Reserve} from "./reserve/Reserve"
