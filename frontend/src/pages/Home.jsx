@@ -1,6 +1,5 @@
 import './home.sass';
 
-import { AppointmentRequestForm } from '../components';
 import Typography from '@mui/material/Typography';
 
 function Home() {
@@ -43,9 +42,6 @@ function Home() {
         <Typography 
           style={styles.withoutTitle}
         >Get ready to book your next event... Our schedule is coming together, and we can't wait to share it with you!</Typography>
-      </section>
-      <section name="contact">
-        <AppointmentRequestForm />
       </section>
     </div>
   );

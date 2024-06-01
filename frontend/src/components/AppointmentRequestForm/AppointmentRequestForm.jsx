@@ -147,7 +147,7 @@ const AppointmentRequestForm = () => {
     }
 
     return(
-        <div>
+        <div id="contactForm">
             <Box 
                 component="form"
                 noValidate
@@ -156,7 +156,7 @@ const AppointmentRequestForm = () => {
                     '& .MuiTextField-root': { m: 1},
                 }}
             >
-                <Box>
+                <Box className="fname-lname">
                     <TextField
                         label="First name"
                         variant="filled"

@@ -1,11 +1,13 @@
 @use '../../styles/global/_main-color' as main
-form
-    display: flex
-    flex-direction: column
-    margin: 20px
-    padding: 20px
-    border-radius: 30px
-    background-color: rgba(main.$background-color-light, 0.5)
-
-div
+#contactForm
     height: fit-content
+    width: 600px
+    .fname-lname
+        display: flex
+        justify-content: space-between
+        div
+            width: 100%
+    form
+        display: flex
+        flex-direction: column
+        max-width: 900px
