@@ -155,7 +155,7 @@ const AppointmentRequestForm = () => {
                 //     '& .MuiTextField-root': { m: 1},
                 // }}
             >
-                <Box className="fname-lname">
+                <Box className="fname-lname" sx={{gap:1}}>
                     <TextField
                         label="First name"
                         variant="filled"
@@ -261,6 +261,13 @@ const AppointmentRequestForm = () => {
                     }}
                     />
                 </LocalizationProvider>
+                <TextField 
+                    label="Comments & Messages"
+                    variant="filled"
+                    multiline
+                    maxRows={4}
+                    minRows={4}
+                />
                 <Button type="submit" onClick={(event) => submitForm(event)}>Submit</Button>
             </Box>
         </div>
