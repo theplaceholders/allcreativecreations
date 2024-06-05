@@ -7,9 +7,8 @@ function ContactUs() {
       <section name="contactForm">
         <section name="quotes&messages">
           <h2>Get In Touch</h2>
-          <p>"Celebrate what you want to see more of." - Tom Peters</p>
-          <p>Please complete our inquiry form below</p>
-          <p>we will get back to you in 24-72 hours</p>
+          <p>Please feel free to make inquiries, feedbacks or just a simple message</p>
+          <p>we will get back to you through contact of your choice</p>
         </section>
       </section>
     </div>
