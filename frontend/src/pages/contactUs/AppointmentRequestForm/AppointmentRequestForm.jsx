@@ -35,22 +35,24 @@ const AppointmentRequestForm = () => {
     const [form, setForm] = useState({
         constant:{
             minDate: dayjs().add(bookDaysInAdvance, 'day'),
-            maxDate: dayjs().add(maxFutureMonths, 'month')
+            maxDate: dayjs().add(maxFutureMonths, 'month'),
+            maxCharacters: 255
         },
-        errorMessage:{
-            fname:"",
-            lname:"",
-            email:"",
-            phone:"",
-            address:"",
-            calendar:""
+        checkResult:{
+            fname:{},
+            lname:{},
+            email:{},
+            message:{},
+            hasError: true
         },
         fname:"",
         lname:"",
         email:"",
         phone:"",
         address:"",
-        calendar:firstAvailable
+        calendar:firstAvailable,
+        message:"",
+        
     })
 
     useEffect(() => {
@@ -96,14 +98,32 @@ const AppointmentRequestForm = () => {
         fetchList()
     }, [])
 
+    //handles expand use state for services and event list
     function handleExpand(expandEvent){
         onExpand({...expand, [expandEvent]: !expand[expandEvent]})
     }
 
+    //handles check when textField looses focus from user
+    function handleBlur(e){
+        const fieldName  = e.target.name
+        const error  = checkForm(form, fieldName)
+        const hasError = checkForm(form).hasError
+        setForm((prev)=>({
+            ...prev,
+            checkResult:{
+                ...prev.checkResult,
+                ...error,
+                hasError: hasError
+            }
+        }))
+
+    }
+
+    //handles final checkForm and submit form to backend
     function submitForm(e){
         e.preventDefault()
-
-        if(!checkForm({form, setForm}))
+        
+        if(checkForm(form).hasError)
             return
 
         let selected = Object.keys(list).reduce((acc, service)=>{
@@ -116,7 +136,7 @@ const AppointmentRequestForm = () => {
 
         let submitObj = {...form}
         delete submitObj.constant
-        delete submitObj.errorMessage
+        delete submitObj.checkResult
         submitObj.selected = selected
         //format submit to month-day-year
         submitObj.calendar = `${submitObj.calendar.month()+1}-${submitObj.calendar.date()}-${submitObj.calendar.year()}`
@@ -126,18 +146,19 @@ const AppointmentRequestForm = () => {
         let service = list.service
         let event = list.event
 
-        Object.keys(service).map((key)=>{service[key] = false})
-        Object.keys(event).map((key)=>{event[key] = false})
 
-        setList((prev)=>{return {...prev, service:{...service}, event:{...event}}})
+        // Object.keys(service).map((key)=>{service[key] = false})
+        // Object.keys(event).map((key)=>{event[key] = false})
 
-        setForm((prev)=>{return {...prev, 
-            fname:"",
-            lname:"",
-            email:"",
-            phone:"",
-            address:"",
-        }})
+        // setList((prev)=>{return {...prev, service:{...service}, event:{...event}}})
+
+        // setForm((prev)=>{return {...prev, 
+        //     fname:"",
+        //     lname:"",
+        //     email:"",
+        //     phone:"",
+        //     address:"",
+        // }})
     }
 
     function handleInputUpdate(e){
@@ -162,8 +183,9 @@ const AppointmentRequestForm = () => {
                         name="fname"
                         value={form.fname}
                         onChange={(e)=>handleInputUpdate(e)}
-                        error={form.errorMessage.fname.length > 0}
-                        helperText={form.errorMessage.fname}
+                        error={form.checkResult.fname.error}
+                        helperText={form.checkResult.fname.message}
+                        onBlur={(e)=>handleBlur(e)}
                         required
                     />
                     <TextField
@@ -172,8 +194,9 @@ const AppointmentRequestForm = () => {
                         name="lname"
                         value={form.lname}
                         onChange={(e)=>handleInputUpdate(e)}
-                        error={form.errorMessage.lname.length > 0}
-                        helperText={form.errorMessage.lname}
+                        error={form.checkResult.lname.error}
+                        helperText={form.checkResult.lname.message}
+                        onBlur={(e)=>handleBlur(e)}
                         required
                     />
                 </Box>
@@ -183,8 +206,9 @@ const AppointmentRequestForm = () => {
                     name="email"
                     value={form.email}
                     onChange={(e)=>handleInputUpdate(e)}
-                    error={form.errorMessage.email.length > 0}
-                    helperText={form.errorMessage.email}
+                    error={form.checkResult.email.error}
+                    helperText={form.checkResult.email.message}
+                    onBlur={(e)=>handleBlur(e)}
                     required
                 />
                 <TextField
@@ -193,8 +217,6 @@ const AppointmentRequestForm = () => {
                     name="phone"
                     value={form.phone}
                     onChange={(e)=>handleInputUpdate(e)}
-                    error={form.errorMessage.phone.length > 0}
-                    helperText={form.errorMessage.phone}
                 />
                 <TextField
                     label="Event address"
@@ -202,8 +224,6 @@ const AppointmentRequestForm = () => {
                     name="address"
                     value={form.address}
                     onChange={(e)=>handleInputUpdate(e)}
-                    error={form.errorMessage.address.length > 0}
-                    helperText={form.errorMessage.address}
                 />
                 <FormControl >
                     <Box style={{
@@ -262,13 +282,19 @@ const AppointmentRequestForm = () => {
                     />
                 </LocalizationProvider>
                 <TextField 
-                    label="Comments & Messages"
+                    name="message"
+                    label={`Comments & Messages ${form.message.length!=0 ? `${form.message.length}/${form.constant.maxCharacters}` : ""}`}
                     variant="filled"
                     multiline
                     maxRows={4}
                     minRows={4}
+                    value={form.message}
+                    onChange={(e)=>handleInputUpdate(e)}
+                    error={form.message.length > form.constant.maxCharacters}
+                    helperText={form.checkResult.message.message}
+                    onBlur={(e)=>handleBlur(e)}
                 />
-                <Button type="submit" onClick={(event) => submitForm(event)}>Submit</Button>
+                <Button type="submit" onClick={(event) => submitForm(event)} disabled={form.checkResult.hasError}>Submit</Button>
             </Box>
         </div>
     )
