@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { Root, Home, ContactUs, NotFound, AdminPage, Reserve } from './pages'
+import { Root, Home, ContactUs, NotFound, AdminPage, Celebrations, Portfolio, About } from './pages'
 
 const router = createBrowserRouter([
   {
@@ -12,7 +12,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path:"/contact-us",
+        path:"/contact",
         element: <ContactUs />,
       },
       {
@@ -20,8 +20,16 @@ const router = createBrowserRouter([
         element: <AdminPage />,
       },
       {
-        path:"/reserve",
-        element: <Reserve />,
+        path:"/celebrations",
+        element: <Celebrations />,
+      },
+      {
+        path:"/galleries",
+        element: <Portfolio />,
+      },
+      {
+        path:"/about",
+        element: <About />,
       },
     ]
   }

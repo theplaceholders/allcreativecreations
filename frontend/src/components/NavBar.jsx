@@ -38,16 +38,16 @@ const NavBar = () => {
                             <Link to="/" className="navbar__link">Home</Link>
                         </li>
                         <li className="navbar__item">
-                            <Link to="/" className="navbar__link">About</Link>
+                            <Link to="/celebrations" className="navbar__link">Celebrations</Link>
                         </li>
                         <li className="navbar__item">
-                            <Link to="/" className="navbar__link">Projects</Link>
+                            <Link to="/galleries" className="navbar__link">Portfolio</Link>
                         </li>
                         <li className="navbar__item">
-                            <Link to="/reserve" className="navbar__link">Reserve</Link>
+                            <Link to="/about" className="navbar__link">About</Link>
                         </li>
                         <li className="navbar__item">
-                            <Link to="/contact-us" className="navbar__link">Contact Us</Link>
+                            <Link to="/contact" className="navbar__link">Contact</Link>
                         </li>
                     </ul>
                 </div>
